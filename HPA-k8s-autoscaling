@@ -98,3 +98,70 @@ Initially, there are 2 Nginx pods.
 When CPU usage exceeds 50%, HPA scales up the pods dynamically (up to 5).
 If CPU load reduces, HPA scales down the pods.
 This ensures efficient resource utilization and cost management.
+
+
+
+----------------------- 
+1  gcloud container clusters get-credentials cluster-1-vishal --region us-central1 --project user-mtqbimucgral
+    2  vi nginx-deployment.yaml
+    3  kubectl apply -f nginx-deployment.yaml 
+    4  kubectl get po
+    5  kubectl get hpa
+    6  kubectl get deploy
+    7  kubectl expose deployment nginx-seployment --type-LoadBalancer --port=80 --name=nginx-deployment
+    8  kubectl expose deployment nginx-deployment --type-LoadBalancer --port=80 --name=nginx-deployment
+    9  kubectl expose deployment nginx-deployment --type=LoadBalancer --port=80 --name=nginx-service
+   10  kubectl get svc
+   11  kubectl get svc -w
+   12  kubectls get apisevices | grep metrics
+   13  kubectl get apisevices | grep metrics
+   14  kubectl get apiservices | grep metrics
+   15  kubectl get hps
+   16  kubectl get hpa
+   17  kubectl autoscale deployment nginx-deployment --cpu-percentage=5 --min=2 --max=5
+   18  kubectl autoscale deployment nginx-deployment --cpu-percent=5 --min=2 --max=5
+   19  kubectl get hpa
+   20  kubectl run -it --rm --image=busybox load-generator -- bash
+   21  kubectl get po
+   22  kubectl get hpa
+   23  kubectl get po
+   24  kubectl get hpa -w
+   25  kubectl get hpa
+   26  kubectl get po
+   27  kubectl get hpa
+   28  kubectl get po
+   29  kubectl get hpa
+   30  kubectl get po
+   31  kubectl get hpa
+   32  kubectl get po -w
+   33  kubectl get hpa
+   34  kubectl get po -w
+   35  history 
+user_mtqbimucgral@cloudshell:~ (user-mtqbimucgral)$ kubectl get po -w
+NAME                                READY   STATUS    RESTARTS   AGE
+load-generator                      1/1     Running   0          10m
+nginx-deployment-647b5b6489-94w7v   1/1     Running   0          5m14s
+nginx-deployment-647b5b6489-hfb8v   0/1     Pending   0          5m14s
+nginx-deployment-647b5b6489-j4sbf   1/1     Running   0          23m
+nginx-deployment-647b5b6489-qw479   0/1     Pending   0          4m47s
+nginx-deployment-647b5b6489-vfv4h   1/1     Running   0          23m
+^Cuser_mtqbimucgral@cloudshell:~ (user-mtqbimucgral)$ kubectl get hpa
+NAME               REFERENCE                     TARGETS      MINPODS   MAXPODS   REPLICAS   AGE
+nginx-deployment   Deployment/nginx-deployment   cpu: 5%/5%   2         5         5          13m
+user_mtqbimucgral@cloudshell:~ (user-mtqbimucgral)$ kubectl get hpa
+NAME               REFERENCE                     TARGETS      MINPODS   MAXPODS   REPLICAS   AGE
+nginx-deployment   Deployment/nginx-deployment   cpu: 5%/5%   2         5         5          13m
+user_mtqbimucgral@cloudshell:~ (user-mtqbimucgral)$ kubectl get hpa
+NAME               REFERENCE                     TARGETS      MINPODS   MAXPODS   REPLICAS   AGE
+nginx-deployment   Deployment/nginx-deployment   cpu: 5%/5%   2         5         5          13m
+user_mtqbimucgral@cloudshell:~ (user-mtqbimucgral)$ kubectl get po -w
+NAME                                READY   STATUS    RESTARTS   AGE
+load-generator                      1/1     Running   0          10m
+nginx-deployment-647b5b6489-94w7v   1/1     Running   0          5m46s
+nginx-deployment-647b5b6489-hfb8v   0/1     Pending   0          5m46s
+nginx-deployment-647b5b6489-j4sbf   1/1     Running   0          24m
+nginx-deployment-647b5b6489-qw479   0/1     Pending   0          5m19s
+nginx-deployment-647b5b6489-vfv4h   1/1     Running   0          24m
+^Cuser_mtqbimucgral@cloudshell:~ (user-mtqbimucgral)$ kubectl get hpa
+NAME               REFERENCE                     TARGETS      MINPODS   MAXPODS   REPLICAS   AGE
+nginx-deployment   Deployment/nginx-deployment   cpu: 1%/5%   2         5         5          14m
